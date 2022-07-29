@@ -2,7 +2,7 @@
 
 import pandas as pd
   
-path = 'C:/Users/sebas/Desktop/Kaggle/Forecasting/'
+path = 'C:/Users/sebas/Desktop/Kaggle/ForecastingData/'
 
 #Load Data
 oil = pd.read_csv(path + 'oil.csv')
@@ -28,12 +28,13 @@ df['month'] = df['date'].dt.month
 df['quarter'] = df['date'].dt.quarter
 df['week'] = df['date'].dt.isocalendar().week
 df['day_of_week'] = df['date'].dt.day_name()
+df['dayofyear'] = df['date'].dt.dayofyear
 
 #Convert NaN transactions to 0
 df['transactions'] = df['transactions'].fillna(0)
 
 #Save data
-df.to_csv('Data.csv', index=False)
+df.to_csv(path+'Data.csv', index=False)
 
 
 

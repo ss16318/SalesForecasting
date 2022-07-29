@@ -1,7 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('Data.csv')
+path = 'C:/Users/sebas/Desktop/Kaggle/ForecastingData/'
+
+df = pd.read_csv(path + 'Data.csv')
 
 #visualize oil data over time
 time = df['date']
@@ -9,7 +11,7 @@ rawOil = df['dcoilwtico']
 interOil = df['dcoilwtico'].interpolate()  #interpolate oil prices
 
 plt.scatter(time, rawOil, s=0.1, color='b')
-plt.plot(time,interOil,linewidth=0.8, color='r')
+#plt.plot(time,interOil,linewidth=0.8, color='r')
 plt.xlabel('Time')
 plt.ylabel('Oil Price')
 plt.legend(['Raw Oil Prices','Oil Prices with Interpolation'])
@@ -124,6 +126,7 @@ ax = CvS.plot.barh( legend=False)
 ax.set_title("Cities per State")
 
 plt.show()
+
 
 # Sales Time
 
