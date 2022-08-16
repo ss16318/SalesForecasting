@@ -23,18 +23,24 @@ This model achieved a 0.44 root mean squared logarithmic error (the accuracy met
 
 #### Data Preparation
 
-This task involved reading training and meta data from spreadsheets, converting them to dataframes and merging them appropriately
-*(See DataPrep.py file)*
+This task involved reading training and meta data from spreadsheets, converting them to dataframes and merging them appropriately.
 
 #### ARIMA 
+
+##### Approach
+The ARIMA model was deployed to predict sales for each product in each store independently. While the independence assumption simplifies the forecasting problem, it is unrealistic as sales most likely depend on other factors such as holidays, oil prices, sales of other products, product discounts etc....
 
 ##### Groundwork
 
 ARIMA requires a *stationary* signal which means that there should be no *trend* or *seasonality* in the signal
 
-The raw data below shows appears to be fairly stationary. Nevertheless, a log transform on the data, which can be seen below the raw data. Using the "eye-ball test", we can see that the effect of large spikes is reduced, which hopefully ensures stationarity.
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/Raw.png)
 
-To double check, the *Augmented Dickey-Fuller* test was implemented and yielded a p-value of less than 0.05. This confirmed the stationarity of the transformed signal.
+The raw data above shows appears to be non-stationary. Hence, a log transform was performed on the data, which can be seen below. Using the "eye-ball test", we can see that the effect of large spikes is reduced, which hopefully improves stationarity.
+
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/Log.png)
+
+To double check, the *Augmented Dickey-Fuller* test was implemented and yielded a p-value of less than 0.05. This confirmed sufficient stationarity of the transformed signal.
 
 ##### Choosing parameters (p,d,q)
 
@@ -45,11 +51,27 @@ To double check, the *Augmented Dickey-Fuller* test was implemented and yielded 
 
 While the log transform of the signal is sufficiently stationary to perform ARIMA, a differencing order of 1 was used (**d=1**), which represents the change in singal intensity. As can be seen below, the mean is varies less, hence this signal has a higher degree of stationarity.
 
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/DiffLog.png)
+
 The partial autocorrelation function (PACF) was used to determine the order of **p=3** (see PACF graph below)
 
-The autocorrelation function (ACF) was used to determine the order of **q=3** (see ACF graph below)
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/PACF.png)
 
-Therefore, the ARIMA parameters (3,1,3) were used in the forecasting task. *(Note that in determining these parameters there is a level of subjectiveness and that these parameters were tuned accordingly to minimize the error metric of the challenge)*
+The autocorrelation function (ACF) was used to determine the order of **q=1** (see ACF graph below)
+
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/ACF.png)
+
+Therefore, the ARIMA parameters (3,1,1) were used in the forecasting task. *(Note that in determining these parameters there is a level of subjectiveness and that these parameters were tuned accordingly to minimize the error metric of the challenge)*
+
+##### Results
+
+Below is a graph showing ARIMA results on in-sample and out-of-sample data from Automotive sales in Store 1. Noticeably, the predictions do not flucatuate as much as the sales, rather they hover around the mean. In the out-of-sample predictions, the predictions are essentially constant (which may be due to the Moving Average component not contributing to the prediction beacause there is no way to measure error with out-of-sample data). 
+
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/Sales.png)
+
+##### Conclusion
+
+This model yielded the highest accuracy in the Kaggle challenge compared to other ARIMA models which made more of an attempt to predict sales fluctuations and scored 99th out of 604 on the Kaggle leaderboard. Therefore, it may be deduced that simply predicting sales to be the historical mean is a justifiable forecasting approach. 
 
 
 
