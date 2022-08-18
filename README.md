@@ -80,9 +80,3 @@ This model yielded the highest accuracy in the Kaggle challenge compared to othe
 
 
 
-
-
-
-
-
-

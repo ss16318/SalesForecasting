@@ -20,7 +20,7 @@ df = df.merge(oil, on = 'date', how='left')
 #Format DF
 df = df.rename(columns = {"type_x" : "store_type", "type_y" : "holiday_type" , "dcoilwtico" : "oil"})
 
-df['oil'] = df['oil'].interpolate()
+#df['oil'] = df['oil'].interpolate()
 
 
 df['date'] = pd.to_datetime(df['date'])
