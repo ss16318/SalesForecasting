@@ -9,19 +9,21 @@
 
 Daily sales of each of the *33 products* are forecasted in each of the *54 stores* for a *16 day* period.
 
-Sales are predicted using an **ARIMA model** (AutoRegressive Integrated Moving Average) that was developed using training data and metadata.
+Sales were forecasted using two approahces: **ARIMA model** (AutoRegressive Integrated Moving Average) and **XGBoost model** (eXtreme Gradient Boosting)
 
-* Training data compromised of daily sales of each product in each store over the past 4 years (and whether the products were on promotion)
+The challenge used a root mean squared logarithmic error (RMSLE) metric to measure performance. It was found that the ARIMA model performed better achieving an RMSLE of 0.44 (while the XGBoost model achieved 0.49) 
 
-* Metadata included holidays in Ecuador (dates and types), oil prices, store information (locations and types) and daily transaction data
+Two types of data were used for the models:
 
-This model achieved a 0.44 root mean squared logarithmic error (the accuracy metric used for the challenge)
+* **Training data** compromised of daily sales of each product in each store over the past 4 years (and whether the products were on promotion)
+
+* **Metadata** included holidays in Ecuador (dates and types), oil prices, store information (locations and types) and daily transaction data
 
 
 ------
 ### Specifics
 
-#### Data Preparation
+#### Data Preparation (used in both approaches)
 
 This task involved reading training and meta data from spreadsheets, converting them to dataframes and merging them appropriately.
 
@@ -71,7 +73,35 @@ Below is a graph showing ARIMA results on in-sample and out-of-sample data from 
 
 ##### Conclusion
 
-This model yielded the highest accuracy in the Kaggle challenge compared to other ARIMA models which made more of an attempt to predict sales fluctuations and scored 99th out of 604 on the Kaggle leaderboard. Therefore, it may be deduced that simply predicting sales to be the historical mean is a justifiable forecasting approach. 
+This model yielded the highest accuracy in the Kaggle challenge (0.44 RMSLE) and scored 89th out of 604 on the Kaggle leaderboard. While variations of this model made a greater attempt to model sales flucuations, these results suggest that simply predicting sales to be the historical mean is a justifiable forecasting approach. 
+
+
+#### XGBoost 
+
+##### Approach
+Similar to the ARIMA approach, individual models were trained to predict sales for each product in each store. However, holiday data and oil prices were also features used by the boosting model.
+
+#### Groundwork
+
+Oil sales were not listed every day, so some values were interpolated.
+
+Holiday information was converted from text to binary (holiday or no holiday)
+
+Dates were broken down into years, months, weeks, days etc...
+
+For each training point sales history only spanned over the last 30 days
+
+#### Choosing Parameters
+
+Through trial-and-error the following parameters were used:
+
+* Number of Trees = 100
+
+* Learning rate = 0.1
+
+* The boosting model predicted sales through regression (not classification)
+
+
 
 
 
