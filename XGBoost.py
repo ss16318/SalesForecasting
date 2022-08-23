@@ -22,7 +22,7 @@ def boost(xTrain,yTrain,test):
     
     else:
         
-        hist = 500
+        hist = 100
         
         for i in range(hist):
             
@@ -37,7 +37,7 @@ def boost(xTrain,yTrain,test):
         yTrain = yTrain.iloc[hist-1:]
         
         
-        model = xgb.XGBRegressor(n_estimators=100 , eta = '0.2' )
+        model = xgb.XGBRegressor(n_estimators=100 , eta = '0.1' )
         model.fit(xTrain,yTrain)
         
         
@@ -59,6 +59,9 @@ def boost(xTrain,yTrain,test):
             sales = sales.append(pd.Series(forecast))
             
         out['sales'] = sales.tail(days).reset_index(drop=True)
+        
+        out.to_csv('predFut.csv', index=False)
+        
         
     return out
 
