@@ -75,7 +75,7 @@ Below is a graph showing ARIMA results on in-sample and out-of-sample data from 
 
 ##### Conclusion
 
-This model yielded the highest accuracy in the Kaggle challenge (0.44 RMSLE) and scored 89th out of 604 on the Kaggle leaderboard. While variations of this model made a greater attempt to model sales flucuations, these results suggest that simply predicting sales to be the historical mean is a justifiable forecasting approach. 
+This model yielded a reasonalby high accuracy of 0.44 RMSLE. While variations of this model made a greater attempt to model sales flucuations, these results suggest that simply predicting sales to be the historical mean is a justifiable forecasting approach. 
 
 ------
 
@@ -96,11 +96,11 @@ Holiday information was converted from text to binary (holiday or no holiday)
 
 Dates were broken down into years, months, weeks, days etc...
 
-For each training point sales history spanned over the last 100 days (note by increasing the number of sales history features, the number of training samples decreased - hence there is a sweet spot in this trade-off)
+For each training point sales history spanned over the last 100 days *(note by increasing the number of sales history features, the number of training samples decreased - hence there is a sweet spot in this trade-off)*
 
 As mentioned, the model was trained using not just sales history, but holidays, date breakdowns etc... Therefore, the testing data had to be processed in order to match the features used during training.
 
-(Note that although testing included oil price as a feature, performance with this feature decreased - hence it was not included in the final XGBoost model)
+*(Note that although testing included oil price as a feature, performance with this feature decreased - hence it was not included in the final XGBoost model)*
 
 ##### Choosing Parameters
 
@@ -115,6 +115,20 @@ Through trial-and-error the following parameters were used:
 ##### Results
 
 Again, in-sample and out-of-sample data from Automotive sales in Store 1 is shown below (using XGBoost this time).
+
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/SalesBoost.png)
+
+##### Conclusion
+
+From the graph, it is clear that this approach makes a greater attempt to forecast sales volatility (although not all the way to the extremes). This model achieved the most accurate RMSLE score of 0.43 and placed 70th out of 604 teams on the Kaggle Leaderboard.
+
+------
+
+### Verdict
+
+Instead of using the ARIMA model, a simple historical sales average would yield acceptable results. 
+
+The XGBoost model produced marginally better results, but it importantly forecasted volatility. Hence, there is potential that further work into developing more insightful features and tuning parameters will result in a more accurate model that is able to forecast greater volatility.  
 
 
 
