@@ -11,7 +11,7 @@ Daily sales of each of the *33 products* are forecasted in each of the *54 store
 
 Sales were forecasted using two approahces: **ARIMA model** (AutoRegressive Integrated Moving Average) and **XGBoost model** (eXtreme Gradient Boosting)
 
-The challenge used a root mean squared logarithmic error (RMSLE) metric to measure performance. It was found that the ARIMA model performed better achieving an RMSLE of 0.44 (while the XGBoost model achieved 0.49) 
+The challenge used a root mean squared logarithmic error (RMSLE) metric to measure performance. It was found that the XGBoost model performed better achieving an RMSLE of 0.43 (while the ARIMA model achieved 0.44). However, given the similarity in error measure, further analysis should be carried out to definitively determine the better model. 
 
 Two types of data were used for the models:
 
@@ -86,15 +86,21 @@ Similar to the ARIMA approach, individual models were trained to predict sales f
 
 ##### Groundwork
 
-Oil sales were not listed every day, so some values were interpolated.
+Oil sales were not listed every day, so some values were interpolated (see graphs below).
+
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/rawOil.png)
+
+![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/interOil.png)
 
 Holiday information was converted from text to binary (holiday or no holiday)
 
 Dates were broken down into years, months, weeks, days etc...
 
-For each training point sales history spanned over the last 500 days (note the more sales history included the fewer number of data points could be used to train the model)
+For each training point sales history spanned over the last 100 days (note by increasing the number of sales history features, the number of training samples decreased - hence there is a sweet spot in this trade-off)
 
-As mentioned, the model was trained using not just sales history, but oil price, holidays, date breakdowns etc... Therefore, the testing data had to be processed in order to match the features used during training. 
+As mentioned, the model was trained using not just sales history, but holidays, date breakdowns etc... Therefore, the testing data had to be processed in order to match the features used during training.
+
+(Note that although testing included oil price as a feature, performance with this feature decreased - hence it was not included in the final XGBoost model)
 
 ##### Choosing Parameters
 
