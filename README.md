@@ -27,6 +27,8 @@ Two types of data were used for the models:
 
 This task involved reading training and meta data from spreadsheets, converting them to dataframes and merging them appropriately.
 
+------
+
 #### ARIMA 
 
 ##### Approach
@@ -75,6 +77,7 @@ Below is a graph showing ARIMA results on in-sample and out-of-sample data from 
 
 This model yielded the highest accuracy in the Kaggle challenge (0.44 RMSLE) and scored 89th out of 604 on the Kaggle leaderboard. While variations of this model made a greater attempt to model sales flucuations, these results suggest that simply predicting sales to be the historical mean is a justifiable forecasting approach. 
 
+------
 
 #### XGBoost 
 
@@ -90,6 +93,8 @@ Holiday information was converted from text to binary (holiday or no holiday)
 Dates were broken down into years, months, weeks, days etc...
 
 For each training point sales history spanned over the last 500 days (note the more sales history included the fewer number of data points could be used to train the model)
+
+As mentioned, the model was trained using not just sales history, but oil price, holidays, date breakdowns etc... Therefore, the testing data had to be processed in order to match the features used during training. 
 
 ##### Choosing Parameters
 
