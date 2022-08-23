@@ -22,7 +22,7 @@ def boost(xTrain,yTrain,test):
     
     else:
         
-        hist = 100
+        hist = 500
         
         for i in range(hist):
             
@@ -37,7 +37,7 @@ def boost(xTrain,yTrain,test):
         yTrain = yTrain.iloc[hist-1:]
         
         
-        model = xgb.XGBRegressor(n_estimators=100 , eta = '0.1' )
+        model = xgb.XGBRegressor(n_estimators=100 , eta = '0.2' )
         model.fit(xTrain,yTrain)
         
         
@@ -69,7 +69,9 @@ df = pd.read_csv(path + 'Data.csv')
 test = pd.read_csv(path + 'BoostTest.csv') 
 
 test = binHol(test) 
-df = binHol(df)             
+df = binHol(df)  
+
+#test['oil'] = test['oil'].interpolate()           
 
 #get groups of stores and products
 products = df.groupby('family')
@@ -82,12 +84,12 @@ for pr in products:
         #get relevant rows based on unqiue product and store
         data = df.loc[df['family'] == pr[0]]
         data = data.loc[data['store_nbr'] == st[0]]
-        
+        #data['oil'] = data['oil'].interpolate()
         #data = data.dropna()
+
         
         xTrain = data[['year','month','week','dayofyear','day_of_week','holiday_type']]
         yTrain = data['sales']
-        
         test = test[['date','year','month','week','dayofyear','day_of_week','holiday_type']]
         
         #perform arima estimation for store and product
@@ -112,6 +114,6 @@ layout['date'] = layout['date'].astype('datetime64[ns]')
 salesForecast['date'] = salesForecast['date'].astype('datetime64[ns]')
 pred = layout.merge(salesForecast, on=['store_nbr','date','family'], how='left')
 prediction = pred[['id','sales']]
-prediction.to_csv('Predictions.csv', index=False)
+prediction.to_csv('Predictions2.csv', index=False)
 
 

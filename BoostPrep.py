@@ -17,9 +17,10 @@ test = test.merge(holidays[['date','type']], on='date', how='left')
 
 # Oil
 oil = pd.read_csv(path + 'oil.csv')
+
 test = test.merge(oil, on = 'date', how='left')
 test = test.rename(columns = { "type" : "holiday_type" , "dcoilwtico" : "oil" })
-test['oil'] = test['oil'].interpolate()
+
 
 # Add Dates Breakdown & Convert to Datetime
 test['date'] = pd.to_datetime(test['date'])

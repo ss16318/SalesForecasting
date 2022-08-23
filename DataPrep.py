@@ -20,8 +20,6 @@ df = df.merge(oil, on = 'date', how='left')
 #Format DF
 df = df.rename(columns = {"type_x" : "store_type", "type_y" : "holiday_type" , "dcoilwtico" : "oil"})
 
-#df['oil'] = df['oil'].interpolate()
-
 
 df['date'] = pd.to_datetime(df['date'])
 
@@ -38,7 +36,6 @@ df['transactions'] = df['transactions'].fillna(0)
 
 #Save data
 df.to_csv(path+'Data.csv', index=False)
-
 
 
 
