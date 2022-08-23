@@ -81,7 +81,7 @@ This model yielded the highest accuracy in the Kaggle challenge (0.44 RMSLE) and
 ##### Approach
 Similar to the ARIMA approach, individual models were trained to predict sales for each product in each store. However, holiday data and oil prices were also features used by the boosting model.
 
-#### Groundwork
+##### Groundwork
 
 Oil sales were not listed every day, so some values were interpolated.
 
@@ -89,9 +89,9 @@ Holiday information was converted from text to binary (holiday or no holiday)
 
 Dates were broken down into years, months, weeks, days etc...
 
-For each training point sales history only spanned over the last 30 days
+For each training point sales history spanned over the last 500 days (note the more sales history included the fewer number of data points could be used to train the model)
 
-#### Choosing Parameters
+##### Choosing Parameters
 
 Through trial-and-error the following parameters were used:
 
@@ -100,6 +100,10 @@ Through trial-and-error the following parameters were used:
 * Learning rate = 0.1
 
 * The boosting model predicted sales through regression (not classification)
+
+##### Results
+
+Again, in-sample and out-of-sample data from Automotive sales in Store 1 is shown below (using XGBoost this time).
 
 
 
