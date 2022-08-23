@@ -124,7 +124,7 @@ From the graph, it is clear that this approach makes a greater attempt to foreca
 
 ------
 
-### Verdict
+#### Verdict
 
 Instead of using the ARIMA model, a simple historical sales average would yield acceptable results. 
 
