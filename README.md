@@ -11,7 +11,7 @@ Daily sales of each of the *33 products* are forecasted in each of the *54 store
 
 Sales were forecasted using two approahces: **ARIMA model** (AutoRegressive Integrated Moving Average) and **XGBoost model** (eXtreme Gradient Boosting)
 
-The challenge used a root mean squared logarithmic error (RMSLE) metric to measure performance. It was found that the XGBoost model performed better achieving an RMSLE of 0.43 (while the ARIMA model achieved 0.44). However, given the similarity in error measure, further analysis should be carried out to definitively determine the better model. 
+The challenge used a root mean squared logarithmic error (RMSLE) metric to measure performance. It was found that the XGBoost model performed better achieving an RMSLE of 0.43 (while the ARIMA model achieved 0.44). However, given the similarity in error measure, further analysis should be carried out to definitively determine the better model. *(For comparison the winning model achieved a score of 0.38 on the Kaggle Leaderboard)*
 
 Two types of data were used for the models:
 
@@ -40,7 +40,7 @@ ARIMA requires a *stationary* signal which means that there should be no *trend*
 
 ![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/Raw.png)
 
-The raw data above shows appears to be non-stationary. Hence, a log transform was performed on the data, which can be seen below. Using the "eye-ball test", we can see that the effect of large spikes is reduced, which hopefully improves stationarity.
+The raw data above appears to be non-stationary. Hence, a log transform was performed on the data, which can be seen below. Using the "eye-ball test", we can see that the effect of large spikes is reduced, which hopefully improves stationarity.
 
 ![alt text](https://github.com/ss16318/SalesForecasting/blob/main/Plots/Log.png)
 
